@@ -1,0 +1,42 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int n, x, y;
+    cin >> n >> x >> y;
+
+    vector<int> enemy(n);
+
+    for (int i = 0; i < n; i++) {
+        cin >> enemy[i];
+    }
+
+    int shield = x;
+    int ans = 0;
+
+    while (true) {
+        int idx = 0;
+
+        for (int i = 1; i < n; i++) {
+            if (enemy[i] < enemy[idx]) {
+                idx = i;
+            }
+        }
+
+        int hp = enemy[idx];
+        int need = (hp + y - 1) / y;
+
+        if (need > shield) {
+            break;
+        }
+
+        ans += need;
+        shield = shield - need + x;
+
+        enemy[idx] *= 2;
+    }
+
+    cout << ans << endl;
+
+    return 0;
+}
